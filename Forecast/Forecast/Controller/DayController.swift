@@ -39,7 +39,8 @@ class DayController {
             do {
                 if let topLevel = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed) as? [String : Any], let dataArray = topLevel["data"] as? [[String: Any]] {
                 
-                    let cityWeather = dataArray.compactMap { Day(dictionary: $0, cityName: "city_name") }
+                    let cityWeather = dataArray.compactMap { Day(dictionary: $0, cityName: Constants.APIQueryKey.cityQueryValue) }
+                    completion(cityWeather)
                 }
             } catch {
                 print("Error in Do/Try/Catch: \(error.localizedDescription)")
