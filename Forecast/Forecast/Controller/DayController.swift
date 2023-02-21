@@ -6,3 +6,23 @@
 //
 
 import Foundation
+
+class DayController {
+    
+    static func fetchDays(completion: @escaping ([Day]?) -> Void) {
+        
+        // MARK: - Consturct URL
+        guard let baseURL = URL(string: Constants.WeatherURL.baseURL) else { completion(nil); return}
+        var urlComponents = URLComponents(url: baseURL, resolvingAgainstBaseURL: true)
+        urlComponents?.path.append(Constants.WeatherURL.dailyPath)
+        
+        let apiQuery = URLQueryItem(name: Constants.APIQueryKey.apiKey, value: Constants.APIQueryKey.apiKeyValue)
+        let cityQuery = URLQueryItem(name: Constants.APIQueryKey.cityQueryKey, value: Constants.APIQueryKey.cityQueryValue)
+        let unitQuery = URLQueryItem(name: Constants.APIQueryKey.mericaQueryKey, value: Constants.APIQueryKey.mericaQueryValue)
+        
+        urlComponents?.queryItems = [cityQuery,unitQuery,apiQuery]
+        guard let finalURL = urlComponents?.url else {completion(nil); return}
+        print(finalURL)
+        
+    }
+}
